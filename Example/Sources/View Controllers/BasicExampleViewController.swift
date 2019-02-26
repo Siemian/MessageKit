@@ -28,6 +28,12 @@ import MessageKit
 import MessageInputBar
 
 final class BasicExampleViewController: ChatViewController {
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        becomeFirstResponder()
+        messageInputBar.didMoveToWindow()
+    }
   
     override func configureMessageCollectionView() {
         super.configureMessageCollectionView()

@@ -30,16 +30,21 @@ final internal class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = NavigationController(rootViewController: LaunchViewController())
-        window?.makeKeyAndVisible()
-        
-        if UserDefaults.isFirstLaunch() {
-            // Enable Text Messages
-            UserDefaults.standard.set(true, forKey: "Text Messages")
+        let container = UIViewController()
+        let basic = BasicExampleViewController()
+        container.view.addSubview(basic.view)
+        container.addChild(basic)
+        if #available(iOS 11.0, *) {
+            basic.view.topAnchor.constraint(equalTo: container.view.safeAreaLayoutGuide.topAnchor).isActive = true
+            basic.view.leadingAnchor.constraint(equalTo: container.view.leadingAnchor).isActive = true
+            basic.view.trailingAnchor.constraint(equalTo: container.view.trailingAnchor).isActive = true
+            basic.view.bottomAnchor.constraint(equalTo: container.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            basic.view.translatesAutoresizingMaskIntoConstraints = false
         }
-        
+        window?.rootViewController = container
+        window?.makeKeyAndVisible()
         return true
     }
 

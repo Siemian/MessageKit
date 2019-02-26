@@ -179,7 +179,8 @@ extension ChatViewController: MessageCellDelegate {
     }
     
     func didTapMessage(in cell: MessageCollectionViewCell) {
-        print("Message tapped")
+        let test = TestController()
+        present(test, animated: true, completion: nil)
     }
     
     func didTapCellTopLabel(in cell: MessageCollectionViewCell) {
@@ -247,4 +248,23 @@ extension ChatViewController: MessageInputBarDelegate {
         messagesCollectionView.scrollToBottom(animated: true)
     }
     
+}
+
+final class TestController: UIViewController {
+
+    let button = UIButton(type: .system)
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .black
+        view.addSubview(button)
+        button.frame = CGRect(x: 100, y: 100, width: 100, height: 100)
+        button.backgroundColor = .red
+        button.addTarget(self, action: #selector(dismisss), for: .touchUpInside)
+
+    }
+
+    @objc func dismisss() {
+        dismiss(animated: true, completion: nil)
+    }
 }
